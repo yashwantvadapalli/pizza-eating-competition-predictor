@@ -1,0 +1,5 @@
+# Exclude Visual Studio specific files
+.vs/
+
+# Exclude user-specific Visual Studio project files
+*.vcxproj.user
