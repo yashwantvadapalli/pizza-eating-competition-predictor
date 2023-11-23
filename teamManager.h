@@ -16,5 +16,7 @@ public:
 
 	void readTeamsFromFile(const std::string& filename);
 	void displayTeams() const;
+
+	const std::vector<std::string>& getTeams() const { return teamNames; }
 };
 #endif

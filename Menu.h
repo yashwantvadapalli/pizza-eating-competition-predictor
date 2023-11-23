@@ -1,22 +1,29 @@
-#pragma once
-
 #ifndef MENU_H
 #define MENU_H
 
-#include "teamManager.h"
+#include "TeamManager.h"
+#include "pewPredictor.h"  // Include the Predictor header
 
 class Menu {
 public:
-	void displayMenu();
-
-	teamManager tm; // Add a teamManager object to the class
+    void displayMenu();
+    Menu();          // Constructor to initialize the predictor
+    ~Menu();         // Destructor to clean up dynamically allocated memory
 
 private:
-	void displayTeams();
-	void predictQFs(); // Quarter Finalists
-	void predictSFs(); // Semi Finalists
-	void predictWinner(); // Winner
-	void adminMenu(); 
+    teamManager tm;  // TeamManager object to handle team operations
+    pewPredictor* predictor;  // Pointer to Predictor object
+
+    void displayTeams();
+    void predictQFs();      // Quarter Finalists
+    void predictSFs();      // Semi Finalists
+    void predictWinner();   // Winner
+    void adminMenu();
+
+    // Results from predictions
+    std::vector<std::string> quarterFinalists;
+    std::vector<std::string> semiFinalists;
+    std::vector<std::string> finalists;
 };
 
 #endif

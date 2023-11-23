@@ -1,6 +1,18 @@
 #include <iostream>
 #include "Menu.h"
 
+// Constructor
+Menu::Menu() {
+	// Initialize the predictor with the list of teams
+	predictor = nullptr;
+}
+
+// Destructor
+Menu::~Menu() {
+	// Clean up the dynamically allocated predictor
+	delete predictor;
+}
+
 void Menu::displayTeams()
 {
 	std::cout << "Displaying teams...\n";
@@ -8,19 +20,61 @@ void Menu::displayTeams()
 	tm.displayTeams();
 }
 
-void Menu::predictQFs()
-{
+void Menu::predictQFs() {
 	std::cout << "Predicting Quarter Finalists...\n";
+	std::cout << "" << std::endl;
+	if (!predictor) {
+		predictor = new pewPredictor(tm.getTeams()); // Initialize the predictor with teams
+	}
+	quarterFinalists = predictor->predictQuarterFinalists();
+
+	// Display the quarterFinalists
+	std::cout << "Quarter Finalists:\n";
+	std::cout << "" << std::endl;
+	for (const auto& team : quarterFinalists) {
+		std::cout << team << std::endl;
+	}
 }
 
-void Menu::predictSFs()
-{
+void Menu::predictSFs() {
 	std::cout << "Predicting Semi Finalists...\n";
+	std::cout << "" << std::endl;
+	if (predictor && !quarterFinalists.empty()) {
+		semiFinalists = predictor->predictSemiFinalists(quarterFinalists);
+
+		// Display the semiFinalists
+		std::cout << "Semi Finalists:\n";
+		std::cout << "" << std::endl;
+		for (const auto& team : semiFinalists) {
+			std::cout << team << std::endl;
+		}
+	}
+	else {
+		std::cout << "Please predict the quarter finalists first.\n";
+	}
 }
 
-void Menu::predictWinner()
-{
+void Menu::predictWinner() {
 	std::cout << "Predicting Winner...\n";
+	std::cout << "" << std::endl;
+	if (predictor && !semiFinalists.empty()) {
+		finalists = predictor->predictFinalists(semiFinalists);
+
+		// Display the finalists
+		std::cout << "Finalists:\n";
+		std::cout << "" << std::endl;
+		for (const auto& team : finalists) {
+			std::cout << team << std::endl;
+		}
+
+		// Predict and display the winner
+		std::string winner = predictor->predictWinner(finalists);
+		std::cout << "" << std::endl;
+		std::cout << "Winner:\n" << winner << std::endl;
+	}
+	else {
+		std::cout << "Please predict the semi finalists first.\n";
+	}
 }
 
 void Menu::adminMenu()
