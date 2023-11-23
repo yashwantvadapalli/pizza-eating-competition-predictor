@@ -130,9 +130,11 @@
   <ItemGroup>
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="pizza-eating-competition-predictor.cpp" />
+    <ClCompile Include="teamManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="teamManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

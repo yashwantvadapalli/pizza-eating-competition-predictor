@@ -1,9 +1,11 @@
-#include "Menu.h"
 #include <iostream>
+#include "Menu.h"
 
 void Menu::displayTeams()
 {
 	std::cout << "Displaying teams...\n";
+	tm.readTeamsFromFile("teams.txt"); // Load teams from file
+	tm.displayTeams();
 }
 
 void Menu::predictQFs()
@@ -43,6 +45,7 @@ void Menu::displayMenu() {
 		std::cout << "*******************************************\n";
 		std::cout << "\nEnter your choice: ";
 		std::cin >> choice;
+		std::cout << "\n";
 
 
 		switch (choice) {
