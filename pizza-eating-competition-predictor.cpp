@@ -2,10 +2,16 @@
 //
 
 #include <iostream>
+#include "Menu.h"
+
+
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    //Menu Object
+    Menu menu;
+    menu.displayMenu();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
