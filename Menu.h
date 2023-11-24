@@ -2,7 +2,8 @@
 #define MENU_H
 
 #include "TeamManager.h"
-#include "pewPredictor.h"  // Include the Predictor header
+#include "pewPredictor.h"
+#include "adminMenu.h"
 
 class Menu {
 public:
@@ -18,7 +19,7 @@ private:
     void predictQFs();      // Quarter Finalists
     void predictSFs();      // Semi Finalists
     void predictWinner();   // Winner
-    void adminMenu();
+    void displayAdminMenu();
 
     // Results from predictions
     std::vector<std::string> quarterFinalists;

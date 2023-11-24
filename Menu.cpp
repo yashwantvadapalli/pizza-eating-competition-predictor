@@ -1,10 +1,11 @@
 #include <iostream>
 #include "Menu.h"
+#include "teamManager.h"
+#include "adminMenu.h"
 
 // Constructor
-Menu::Menu() {
-	// Initialize the predictor with the list of teams
-	predictor = nullptr;
+Menu::Menu() : predictor(nullptr) {
+	tm.readTeamsFromFile("Teams.txt");  // Load teams from a file
 }
 
 // Destructor
@@ -16,7 +17,6 @@ Menu::~Menu() {
 void Menu::displayTeams()
 {
 	std::cout << "Displaying teams...\n";
-	tm.readTeamsFromFile("teams.txt"); // Load teams from file
 	tm.displayTeams();
 }
 
@@ -77,9 +77,11 @@ void Menu::predictWinner() {
 	}
 }
 
-void Menu::adminMenu()
-{
+void Menu::displayAdminMenu() {
 	std::cout << "Admin Menu...\n";
+	std::cout << " " << std::endl;
+	adminMenu am(tm);  //  adminMenu object
+	am.displayAdminMenu();  // Display for admin menu
 }
 
 void Menu::displayMenu() {
@@ -116,7 +118,7 @@ void Menu::displayMenu() {
 			predictWinner();
 			break;
 		case 5:
-			adminMenu();	
+			displayAdminMenu();	
 			break;
 		case 6:
 			std::cout << "Exiting the program...\n";
