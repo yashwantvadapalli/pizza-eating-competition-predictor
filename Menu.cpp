@@ -3,128 +3,134 @@
 #include "teamManager.h"
 #include "adminMenu.h"
 
-// Constructor
+// Initializing the constructor.
 Menu::Menu() : predictor(nullptr) {
-	tm.readTeamsFromFile("Teams.txt");  // Load teams from a file
+    // Loading teams from the file "Teams.txt".
+    tm.readTeamsFromFile("Teams.txt");
 }
 
-// Destructor
+// Executing the destructor.
 Menu::~Menu() {
-	// Clean up the dynamically allocated predictor
-	delete predictor;
+    // Cleaning up the dynamically allocated predictor.
+    delete predictor;
 }
 
+// Displaying teams.
 void Menu::displayTeams()
 {
-	std::cout << "Displaying teams...\n";
-	tm.displayTeams();
+    std::cout << "Displaying teams...\n";
+    // Delegating the task to teamManager to display teams.
+    tm.displayTeams();
 }
 
+// Predicting Quarter Finalists.
 void Menu::predictQFs() {
-	std::cout << "Predicting Quarter Finalists...\n";
-	std::cout << "" << std::endl;
-	if (!predictor) {
-		predictor = new pewPredictor(tm.getTeams()); // Initialize the predictor with teams
-	}
-	quarterFinalists = predictor->predictQuarterFinalists();
+    std::cout << "Predicting Quarter Finalists...\n";
+    if (!predictor) {
+        // Initializing the predictor with the list of teams.
+        predictor = new pewPredictor(tm.getTeams());
+    }
+    // Storing the predicted quarter finalists.
+    quarterFinalists = predictor->predictQuarterFinalists();
 
-	// Display the quarterFinalists
-	std::cout << "Quarter Finalists:\n";
-	std::cout << "" << std::endl;
-	for (const auto& team : quarterFinalists) {
-		std::cout << team << std::endl;
-	}
+    // Displaying the quarter finalists.
+    std::cout << "Quarter Finalists:\n";
+    for (const auto& team : quarterFinalists) {
+        std::cout << team << std::endl;
+    }
 }
 
+// Predicting Semi Finalists.
 void Menu::predictSFs() {
-	std::cout << "Predicting Semi Finalists...\n";
-	std::cout << "" << std::endl;
-	if (predictor && !quarterFinalists.empty()) {
-		semiFinalists = predictor->predictSemiFinalists(quarterFinalists);
+    std::cout << "Predicting Semi Finalists...\n";
+    if (predictor && !quarterFinalists.empty()) {
+        // Predicting semi finalists based on the quarter finalists.
+        semiFinalists = predictor->predictSemiFinalists(quarterFinalists);
 
-		// Display the semiFinalists
-		std::cout << "Semi Finalists:\n";
-		std::cout << "" << std::endl;
-		for (const auto& team : semiFinalists) {
-			std::cout << team << std::endl;
-		}
-	}
-	else {
-		std::cout << "Please predict the quarter finalists first.\n";
-	}
+        // Displaying the semi finalists.
+        std::cout << "Semi Finalists:\n";
+        for (const auto& team : semiFinalists) {
+            std::cout << team << std::endl;
+        }
+    }
+    else {
+        std::cout << "Please predict the quarter finalists first.\n";
+    }
 }
 
+// Predicting the Winner.
 void Menu::predictWinner() {
-	std::cout << "Predicting Winner...\n";
-	std::cout << "" << std::endl;
-	if (predictor && !semiFinalists.empty()) {
-		finalists = predictor->predictFinalists(semiFinalists);
+    std::cout << "Predicting Winner...\n";
+    if (predictor && !semiFinalists.empty()) {
+        // Predicting finalists from the semi finalists.
+        finalists = predictor->predictFinalists(semiFinalists);
 
-		// Display the finalists
-		std::cout << "Finalists:\n";
-		std::cout << "" << std::endl;
-		for (const auto& team : finalists) {
-			std::cout << team << std::endl;
-		}
+        // Displaying the finalists.
+        std::cout << "Finalists:\n";
+        for (const auto& team : finalists) {
+            std::cout << team << std::endl;
+        }
 
-		// Predict and display the winner
-		std::string winner = predictor->predictWinner(finalists);
-		std::cout << "" << std::endl;
-		std::cout << "Winner:\n" << winner << std::endl;
-	}
-	else {
-		std::cout << "Please predict the semi finalists first.\n";
-	}
+        // Predicting and displaying the winner.
+        std::string winner = predictor->predictWinner(finalists);
+        std::cout << "Winner:\n" << winner << std::endl;
+    }
+    else {
+        std::cout << "Please predict the semi finalists first.\n";
+    }
 }
 
+// Displaying the Admin Menu.
 void Menu::displayAdminMenu() {
-	std::cout << "Admin Menu...\n";
-	std::cout << " " << std::endl;
-	adminMenu am(tm);  //  adminMenu object
-	am.displayAdminMenu();  // Display for admin menu
+    std::cout << "Admin Menu...\n";
+    // Creating an adminMenu object and displaying the admin menu.
+    adminMenu am(tm);
+    am.displayAdminMenu();
 }
 
+// Displaying the main menu and handling user input.
 void Menu::displayMenu() {
-	int choice;
+    int choice;
 
-	do {
-		std::cout << "\n*******************************************\n";
-		std::cout << "*       Welcome to the PEW Predictor      *\n";
-		std::cout << "*                Menu                     *\n";
-		std::cout << "*******************************************\n";
-		std::cout << "* 1. Display Teams                        *\n";
-		std::cout << "* 2. Predict Quarter Finalists            *\n";
-		std::cout << "* 3. Predict Semi Finalists               *\n";
-		std::cout << "* 4. Predict Winner                       *\n";
-		std::cout << "* 5. Admin Menu                           *\n";
-		std::cout << "* 6. Exit                                 *\n";
-		std::cout << "*******************************************\n";
-		std::cout << "\nEnter your choice: ";
-		std::cin >> choice;
-		std::cout << "\n";
+    do {
+        // Printing the main menu options.
+        std::cout << "\n*******************************************\n";
+        std::cout << "*       Welcome to the PEW Predictor      *\n";
+        std::cout << "*                Menu                     *\n";
+        std::cout << "*******************************************\n";
+        std::cout << "* 1. Display Teams                        *\n";
+        std::cout << "* 2. Predict Quarter Finalists            *\n";
+        std::cout << "* 3. Predict Semi Finalists               *\n";
+        std::cout << "* 4. Predict Winner                       *\n";
+        std::cout << "* 5. Admin Menu                           *\n";
+        std::cout << "* 6. Exit                                 *\n";
+        std::cout << "*******************************************\n";
+        std::cout << "\nEnter your choice: ";
+        std::cin >> choice;
+        std::cout << "\n";
 
-
-		switch (choice) {
-		case 1:
-			displayTeams();
-			break;
-		case 2:
-			predictQFs();	
-			break;
-		case 3:
-			predictSFs();
-			break;
-		case 4:
-			predictWinner();
-			break;
-		case 5:
-			displayAdminMenu();	
-			break;
-		case 6:
-			std::cout << "Exiting the program...\n";
-			break;
-		default:
-			std::cout << "Please enter a valid choice.\n";
-		}
-	} while (choice != 6);
+        // Handling the user's choice.
+        switch (choice) {
+        case 1:
+            displayTeams();
+            break;
+        case 2:
+            predictQFs();
+            break;
+        case 3:
+            predictSFs();
+            break;
+        case 4:
+            predictWinner();
+            break;
+        case 5:
+            displayAdminMenu();
+            break;
+        case 6:
+            std::cout << "Exiting the program...\n";
+            break;
+        default:
+            std::cout << "Please enter a valid choice.\n";
+        }
+    } while (choice != 6);  // Repeating until the exit option is chosen.
 }
