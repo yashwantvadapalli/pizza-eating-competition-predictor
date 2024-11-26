@@ -2,7 +2,7 @@
 
 Overview:
 
-This project involves creating a Windows-based console C++ object-oriented program named "Pizza Eating Winner (PEW) Predictor." The task, set by SuperProgram Pte Ltd, where I am a part of the AI programming team, aims to generate interest and awareness for a National Pizza Eating Competition. The PEW Predictor, a menu-driven application, predicts the outcomes of the competition in various rounds, from quarterfinalists to the ultimate winner. Incorporating an admin feature for management purposes to simulate and manage a competitive event dynamically.
+This project involves creating a Windows-based console C++ object-oriented program named "Pizza Eating Winner (PEW) Predictor." The task, set by SuperProgram Pte Ltd(not a real company, this project is completely made up), where I am a part of the AI programming team, aims to generate interest and awareness for a National Pizza Eating Competition. The PEW Predictor, a menu-driven application, predicts the outcomes of the competition in various rounds, from quarterfinalists to the ultimate winner. Incorporating an admin feature for management purposes to simulate and manage a competitive event dynamically.
 
 Approach: 
 
